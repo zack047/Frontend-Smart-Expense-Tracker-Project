@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - ExpenseWise</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="wrapper d-flex align-items-stretch">
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <div class="custom-menu">
+                <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                    <i class="fa fa-bars"></i>
+                    <span class="sr-only">Toggle Menu</span>
+                </button>
+            </div>
+            <div class="p-4">
+                <h1><a href="index.html" class="logo">ExpenseWise</a></h1>
+                <ul class="list-unstyled components mb-5">
+                    <li class="active">
+                        <a href="index.html"><i class="fa fa-home mr-3"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="pages/expenses.html"><i class="fa fa-list mr-3"></i> Expenses</a>
+                    </li>
+                    <li>
+                        <a href="pages/income/dashboard.html"><i class="fa fa-plus mr-3"></i> Income</a>
+                    </li>
+                    <li>
+                        <a href="pages/goals/list.html"><i class="fa fa-flag mr-3"></i> Goals</a>
+                    </li>
+                    <li>
+                        <a href="./pages/expense-forecast.html"><i class="fa fa-chart-line mr-3"></i> Forecast</a>
+                    </li>
+                    <li>
+                        <a href="pages/stats.html"><i class="fa fa-chart-pie mr-3"></i> Statistics</a>
+                    </li>
+                    <li>
+                        <a href="pages/profile.html"><i class="fa fa-user mr-3"></i> Profile</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Page Content -->
+        <div class="content">
+            <!-- Top Navbar -->
+            <div id="navbar-placeholder"></div>
+
+            <!-- Main Content -->
+            <div class="container-fluid p-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5>Add Expense</h5>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="mb-3">
+                                        <label class="form-label">Amount</label>
+                                        <input type="number" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Category</label>
+                                        <select class="form-control">
+                                            <option>Food</option>
+                                            <option>Transportation</option>
+                                            <option>Utilities</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Add</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Expense Overview</h5>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="expenseChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#navbar-placeholder").load("navbar.html");
+            
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+
+        // Initialize chart
+        const ctx = document.getElementById('expenseChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Food', 'Transportation', 'Utilities'],
+                datasets: [{
+                    data: [300, 150, 200],
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+                }]
+            }
+        });
+    </script>
+</body>
+</html>
